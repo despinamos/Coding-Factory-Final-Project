@@ -14,7 +14,8 @@ let phoneSchema = new Schema({
 
 let classSchema = new Schema({
   class: {type:String},
-  hours: {type:Number}
+  hours: {type:Number},
+  ects: {type: Number}
 })
 
 let studentSchema = new Schema({
