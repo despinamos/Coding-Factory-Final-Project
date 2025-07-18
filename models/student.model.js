@@ -16,7 +16,7 @@ let classSchema = new Schema({
   class: {type:String},
   hours: {type:Number},
   ects: {type: Number}
-})
+}, {_id: false})
 
 let studentSchema = new Schema({
   username: {
