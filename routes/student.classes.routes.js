@@ -8,6 +8,5 @@ router.get('/:username', studentClassController.findOne);
 router.post('/', studentClassController.create);
 router.patch('/', studentClassController.update);
 router.delete('/:username/classes/:className', studentClassController.delete);
-router.get('/stats/ects-statistics', studentClassController.ectsStats);
 
 module.exports = router;

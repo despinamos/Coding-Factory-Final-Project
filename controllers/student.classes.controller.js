@@ -90,7 +90,3 @@ exports.delete = async(req, res) => {
        res.status(400).json({status: false, data: err})
     }
 }
-
-exports.ectsStats = async(req, res) => {
-    
-}
