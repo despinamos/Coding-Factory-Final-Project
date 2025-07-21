@@ -1,0 +1,354 @@
+const m2s = require('mongoose-to-swagger');
+const Student = require('./models/student.model')
+
+exports.options = {
+  "components": {
+    "schemas": {
+      Student: m2s(Student)
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {"bearerAuth":[]}
+  ],
+  "openapi":"3.1.0",
+  "info":{
+    "version": "1.0.0",
+    "title": "Student and Classes CRUD API",
+    "description":"An eclass-like application for creating students and classes.",
+    "contact": {
+      "name": "API Support",
+      "email":"support@example.com"
+    }
+  },
+  "servers": [
+    {
+      url:"http://localhost:3000",
+      description:"Local Server"
+    },
+    {
+      url:"http://www.backend.aueb.gr",
+      description: "Testing server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Students",
+      "description": "Endpoints for students."
+    },
+    {
+      "name": "Students and classes",
+      "description": "Endpoints for students and the classes they are enrolled in."
+    },
+    {
+      "name":"Auth",
+      "description": "Endpoints for Authentication"
+    }
+  ],
+  "paths": {
+    "/api/students": {
+      "get": {
+        "tags":["Students"],
+        "description":"Returns a list of all students",
+        "responses":{
+          "200":{
+            "description": "List of all students",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"array",
+                  "items": {
+                    "$ref":"#/components/schemas/Student"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "tags": ["Students"],
+        "description": "Data of student that we want to create",
+        "requestBody":{
+          "description": "JSON with student data",
+          "content": {
+            "application/json": {
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "username": {"type":"string"},
+                  "password": {"type":"string"},
+                  "firstname": {"type": "string"},
+                  "lastname": {"type":"string"},
+                  "email": {"type":"string"},
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "area": {"type":"string"},
+                      "road": {"type":"string"}
+                    }
+                  },
+                  "phone": {
+                    "type":"array",
+                    "items": {
+                      "type": "object",
+                      "properties":{
+                        "type": {"type": "string"},
+                        "number": {"type": "number"}
+                      }
+                    }
+                  },
+                  "classes": {
+                    "type":"array",
+                    "items": {
+                      "type":"object",
+                      "properties": {
+                        "class": {"type": "string"},
+                        "hours": {"type": "number"},
+                        "ects": {"type": "nNumber"}
+                      }
+                    }
+                  }
+                },
+                "required":["username", "password", "firstname", "lastname", "email", "address"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON of new student"
+          }
+        }
+      }      
+    },
+    "/api/students/{username}":{
+      "get": {
+        "tags": ["Students"],
+        "parameters": [
+          {
+            "name": "username",
+            "in":"path",
+            "required":true,
+            "description": "Username of student whose details the request will return.",
+            "type": "string"
+          }
+        ],
+        "description": "Returns student's details for specific username",
+        "responses": {
+          "200": {
+            "description": "Student details",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/Student"
+                }
+              }
+            }            
+          }
+        }
+      },
+      "patch":{
+        "tags": ["Students"],
+        "description": "Update student",
+        "parameters":[
+          {
+            "name":"username",
+            "in":"path",
+            "required":true,
+            "description": "Username of user that will be updated.",
+            "type":"string"
+          }
+        ],
+        "requestBody":{
+          "description":"Data of student to update",
+          "content": {
+            "application/json":{
+              "schema": {
+                "type":"object",
+                "properties":{
+                  "username": {"type":"string"},
+                  "name": {"type":"string"},
+                  "surname": {"type":"string"},
+                  "email":{"type": "string"},
+                  "address": {
+                    "type":"object",
+                    "properties":{
+                      "area": {"type": "string"},
+                      "road": {"type": "string"}
+                    }
+                  },
+                  "phone": {
+                    "type":"array",
+                    "items": {
+                      "type": "object",
+                      "properties":{
+                        "type": {"type": "string"},
+                        "number": {"type": "number"}
+                      }
+                    }
+                  }
+                },
+                "required": ["email"]
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "descripiton": "Update student"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Students"],
+        "description": "Delete student from Database",
+        "parameters": [
+          {
+            "name": "username",
+            "in":"path",
+            "description": "User to delete",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description":"Delete a student"
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Login User",
+        "requestBody": {
+          "description": "Users login with their username and password and a jwt token is sent in response.",
+          "content": {
+            "application/json":{
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": ["username", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token returned"
+          }
+        }
+      }
+    },
+    "/api/student-class":{
+      "get": {
+        "tags": ["Students and classes"],
+        "responses":{
+          "200": {
+            "description": "Returns all classes that every student is enrolled in.",
+            "schema":{
+              "$ref": "#/components/schemas/Student"
+            }
+          }
+        }
+      }
+    },
+    "/api/student-class/{username}":{
+      "get": {
+        "tags": ["Students and classes"],
+        "parameters": [
+          {
+            "name":"username",
+            "in":"path",
+            "required": true,
+            "description": "Username of student whose classes the request will return.",
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "200": {
+            "description": "Students and classes",
+            "schema":{
+              "$ref": "#/components/schemas/Student"
+            }
+          }
+        }
+      }
+    },
+    "/api/student-class":{
+      "post": {
+        "tags": ["Students and classes"],
+        "responses":{
+          "200": {
+            "description": "Enrolls Student in a new class.",
+            "schema":{
+              "$ref": "#/components/schemas/Student"
+            }
+          }
+        }
+      }
+    },
+    "/api/student-class":{
+      "patch": {
+        "tags": ["Students and classes"],
+        "parameters": [
+          {
+            "name":"username",
+            "in":"body",
+            "required": true,
+            "description": "Username of Student whose classes will be updated.",
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "200": {
+            "description": "Updates the enrolled classes of a Student.",
+            "schema":{
+              "$ref": "#/components/schemas/Student"
+            }
+          }
+        }
+      }
+    },
+    "/api/student-class/{username}/classes/{className}":{
+      "delete": {
+        "tags": ["Students and classes"],
+        "parameters": [
+          {
+            "name":"username",
+            "in":"path",
+            "required": true,
+            "description": "Username of Student",
+            "type": "string"
+          },
+          {
+            "name":"className",
+            "in":"path",
+            "required": true,
+            "description": "Class that will be deleted from Student's classes.",
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "200": {
+            "description": "Deletes a class from Student's enrolled classes.",
+            "schema":{
+              "$ref": "#/components/schemas/Student"
+            }
+          }
+        }
+      }
+    }
+  }
+}
