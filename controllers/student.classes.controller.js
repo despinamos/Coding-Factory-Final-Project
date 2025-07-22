@@ -1,4 +1,5 @@
-const Student = require('../models/student.model')
+const Student = require('../models/student.model');
+const classService = require('../services/class.services');
 
 exports.findAll = async(req, res) => {
     console.log("Find classes from all students.")
@@ -27,16 +28,28 @@ exports.findOne = async(req, res) => {
 }
 
 exports.create = async(req, res) => {
-    console.log("Insert class to Student.");
       const username = req.body.username;
-      const classes = req.body.classes;
+      const classToPush = req.body.class;
+
+      console.log("Inserting new class to Student: ", username, classToPush);
+
+      const result = await classService.findOne(classToPush)
+
+      console.log("result: ", result)
+
+      classNew = {
+        class: result.class,
+        hours: result.hours,
+        ects: result.ects
+      }
     
       try {
+
         const result = await Student.updateOne(
           {username: username},
           {
             $push: {
-              classes: classes
+              classes: classNew
             }
           }
         );
@@ -49,22 +62,23 @@ exports.create = async(req, res) => {
 
 exports.update = async(req, res) => {
     const username = req.body.username;
-      const class_id = req.body.class.classname;
-      const class_hours = req.body.class.hours;
-      const class_ects = req.body.class.ects;
+    const class_id = req.body.class.classname;
+    const class_hours = req.body.class.hours;
+    const class_ects = req.body.class.ects;
     
-      console.log("Update class for Student with username: ", username);
-      try {
-        const result = await Student.updateOne(
-          {username: username, "classes.class": class_id},
-          { $set: {
+    console.log("Update class for Student with username: ", username);
+
+    try {
+      const result = await Student.updateOne(
+        {username: username, "classes.class": class_id},
+        { $set: {
             "classes.$.hours": class_hours,
             "classes.$.ects": class_ects
-          }}
-        );
+        }}
+      );
         res.status(200).json({status: true, data: result});
       } catch(err) {
-        console.log("Problem updating Class information: ", err)
+        console.log("Problem updating Class information in Student: ", err)
         res.status(400).json({status: false, data: err});
       }
 }
