@@ -6,7 +6,7 @@ function findAll() {
 }
 
 function findOne(className) {
-  const result = Class.findOne({class_name:className});
+  const result = Class.findOne({class:className});
   return result;
 }
 
