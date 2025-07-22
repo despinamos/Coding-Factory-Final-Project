@@ -15,10 +15,11 @@ exports.findAll = async(req, res) => {
 }
 
 exports.findOne = async(req, res) => {
-    console.log("Find one student based on username.");
+    const username = req.params.username;
+    console.log("Find one student based on username: ", username);
 
     try {
-        const result = await studentService.findOne();
+        const result = await studentService.findOne(username);
         res.status(200).json({status: true, data: result})
     } catch (err) {
         console.log("Problem in reading student", err);
@@ -82,10 +83,10 @@ exports.update = async(req, res) => {
 
     try {
         const result = await Student.findOneAndUpdate({username: username}, updateStudent, {new:true});
-    res.status(200).json({status:true, data:result});
+        res.status(200).json({status:true, data:result});
   } catch (err) {
-    console.log("Error in updating student: ", err);
-    res.status(400).json({status:false, data: err});
+        console.log("Error in updating student: ", err);
+        res.status(400).json({status:false, data: err});
   }
 
 }
