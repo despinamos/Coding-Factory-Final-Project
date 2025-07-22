@@ -14,10 +14,12 @@ exports.findAll = async(req, res) => {
 }
 
 exports.findOne = async(req, res) => {
-    console.log("Find information about a class based on its name.");
+    const classname = req.params.className;
+    console.log("Find information about a class based on its name: ", classname);
 
     try {
-        const result = await classService.findOne();
+        const result = await classService.findOne(classname);
+        console.log(result)
         res.status(200).json({status: true, data: result})
     } catch (err) {
         console.log("Problem in reading class.", err);
@@ -28,10 +30,10 @@ exports.findOne = async(req, res) => {
 exports.create = async(req, res) => {
     let data = req.body;
 
-    console.log("Create Class for: ", data.className);
+    console.log("Create Class for: ", data.class);
 
     const newClass = new Class({
-        class: data.className,
+        class: data.class,
         hours: data.hours,
         ects: data.ects,
     });
@@ -47,7 +49,7 @@ exports.create = async(req, res) => {
 
 exports.update = async(req, res) => {
     const className = req.body.classname;
-    console.log("Update Class information with name: ", classname);
+    console.log("Update Class information with name: ", className);
 
     const updateClass = {
         hours: req.body.hours,
@@ -55,21 +57,21 @@ exports.update = async(req, res) => {
     };
 
     try {
-        const result = await Class.findOneAndUpdate({classname: className}, updateClass, {new:true});
-    res.status(200).json({status:true, data:result});
+        const result = await Class.findOneAndUpdate({class: className}, updateClass, {new:true});
+        res.status(200).json({status:true, data:result});
   } catch (err) {
-    console.log("Error in updating class info: ", err);
-    res.status(400).json({status:false, data: err});
+        console.log("Error in updating class info: ", err);
+        res.status(400).json({status:false, data: err});
   }
 
 }
 
 exports.delete = async(req, res) => {
-    const className = req.params.classname
+    const className = req.params.className
         console.log("Delete class with name: ", className);
     
     try {
-        const result = await Class.findOneAndDelete({classname: className});
+        const result = await Class.findOneAndDelete({class: className});
         res.status(200).json({status:true, data: result});
     } catch (err) {
         console.log("Problem in deleting class: ", err);
