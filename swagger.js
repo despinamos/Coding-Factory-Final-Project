@@ -1,10 +1,12 @@
 const m2s = require('mongoose-to-swagger');
-const Student = require('./models/student.model')
+const Student = require('./models/student.model');
+const Class = require('./models/class.model');
 
 exports.options = {
   "components": {
     "schemas": {
-      Student: m2s(Student)
+      Student: m2s(Student),
+      Class: m2s(Class)
     },
     "securitySchemes": {
       "bearerAuth": {
@@ -41,6 +43,10 @@ exports.options = {
     {
       "name": "Students",
       "description": "Endpoints for students."
+    },
+    {
+      "name": "Classes",
+      "description": "Endpoints for classes."
     },
     {
       "name": "Students and classes",
@@ -126,33 +132,6 @@ exports.options = {
             "description": "JSON of new student"
           }
         }
-      }      
-    },
-    "/api/students/{username}":{
-      "get": {
-        "tags": ["Students"],
-        "parameters": [
-          {
-            "name": "username",
-            "in":"path",
-            "required":true,
-            "description": "Username of student whose details the request will return.",
-            "type": "string"
-          }
-        ],
-        "description": "Returns student's details for specific username",
-        "responses": {
-          "200": {
-            "description": "Student details",
-            "content":{
-              "application/json":{
-                "schema": {
-                  "$ref":"#/components/schemas/Student"
-                }
-              }
-            }            
-          }
-        }
       },
       "patch":{
         "tags": ["Students"],
@@ -160,7 +139,7 @@ exports.options = {
         "parameters":[
           {
             "name":"username",
-            "in":"path",
+            "in":"body",
             "required":true,
             "description": "Username of user that will be updated.",
             "type":"string"
@@ -205,6 +184,33 @@ exports.options = {
             "descripiton": "Update student"
           }
         }
+      }
+    },
+    "/api/students/{username}":{
+      "get": {
+        "tags": ["Students"],
+        "parameters": [
+          {
+            "name": "username",
+            "in":"path",
+            "required":true,
+            "description": "Username of student whose details the request will return.",
+            "type": "string"
+          }
+        ],
+        "description": "Returns student's details for specific username",
+        "responses": {
+          "200": {
+            "description": "Student details",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/Student"
+                }
+              }
+            }            
+          }
+        }
       },
       "delete": {
         "tags": ["Students"],
@@ -221,6 +227,128 @@ exports.options = {
         "responses": {
           "200": {
             "description":"Delete a student"
+          }
+        }
+      }
+    },
+    "/api/classes": {
+      "get": {
+        "tags":["Classes"],
+        "description":"Returns a list of all classes",
+        "responses":{
+          "200":{
+            "description": "List of all classes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"array",
+                  "items": {
+                    "$ref":"#/components/schemas/Class"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "tags": ["Classes"],
+        "description": "Data of class that we want to create",
+        "requestBody":{
+          "description": "JSON with class data",
+          "content": {
+            "application/json": {
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "class": {"type":"string"},
+                  "hours": {"type":"number"},
+                  "ects": {"type": "number"},
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON of new class"
+          }
+        }
+      },
+      "patch":{
+        "tags": ["Classes"],
+        "description": "Update class",
+        "parameters":[
+          {
+            "name":"class",
+            "in":"body",
+            "required":true,
+            "description": "Name of class that will be updated.",
+            "type":"string"
+          }
+        ],
+        "requestBody":{
+          "description":"Data of class to update",
+          "content": {
+            "application/json":{
+              "schema": {
+                "type":"object",
+                "properties":{
+                  "hours": {"type":"number"},
+                  "ects": {"type":"number"}
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Update class."
+          }
+        }
+      }
+    },
+    "/api/classes/{className}":{
+      "get": {
+        "tags": ["Classes"],
+        "parameters": [
+          {
+            "name": "className",
+            "in":"path",
+            "required":true,
+            "description": "Name of class whose details the request will return.",
+            "type": "string"
+          }
+        ],
+        "description": "Returns class' details for specific class name",
+        "responses": {
+          "200": {
+            "description": "Class details",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "$ref":"#/components/schemas/Class"
+                }
+              }
+            }            
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Classes"],
+        "description": "Delete class from Database.",
+        "parameters": [
+          {
+            "name": "className",
+            "in":"path",
+            "description": "Class to delete.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description":"Delete a class."
           }
         }
       }
@@ -278,7 +406,7 @@ exports.options = {
         ],
         "responses":{
           "200": {
-            "description": "Students and classes",
+            "description": "Returns the classes that the student with the specified username is enrolled in.",
             "schema":{
               "$ref": "#/components/schemas/Student"
             }
@@ -287,6 +415,17 @@ exports.options = {
       }
     },
     "/api/student-class":{
+      "get": {
+        "tags": ["Students and classes"],
+        "responses":{
+          "200": {
+            "description": "Gets all students and the classes they are enrolled in.",
+            "schema":{
+              "$ref": "#/components/schemas/Student"
+            }
+          }
+        }
+      },
       "post": {
         "tags": ["Students and classes"],
         "responses":{
@@ -297,9 +436,7 @@ exports.options = {
             }
           }
         }
-      }
-    },
-    "/api/student-class":{
+      },
       "patch": {
         "tags": ["Students and classes"],
         "parameters": [
