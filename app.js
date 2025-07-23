@@ -3,6 +3,8 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger');
 
+require('dotenv').config();
+
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
