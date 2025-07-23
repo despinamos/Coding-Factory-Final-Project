@@ -10,4 +10,17 @@ function findOne(username) {
   return result;
 }
 
-module.exports = { findAll, findOne }
+async function findLastInsertedStudent() {
+  console.log("Finding last inserted student...");
+
+  try {
+    const result = await Student.find().sort({_id: -1}).limit(1);
+    console.log("Success in finding student.", result[0]);
+    return result[0]
+  } catch(err) {
+    console.log("Problem in finding last inserted student.", err);
+    return false;
+  }
+}
+
+module.exports = { findAll, findOne, findLastInsertedStudent }
