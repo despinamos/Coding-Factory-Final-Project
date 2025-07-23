@@ -42,6 +42,10 @@ let studentSchema = new Schema({
     required: [true, 'Lastname is a required field'],
     max: 20
   },
+  age: {
+    type: Number,
+    max: 99
+  },
   email: {
     type: String,
     required: [true, 'Email is a required field'],
@@ -52,7 +56,8 @@ let studentSchema = new Schema({
   },
   address: addressSchema,
   phone: {type: [phoneSchema], null: true},
-  classes: {type: [classSchema], null: true}
+  classes: {type: [classSchema], null: true},
+  roles: {type: [String], null: true}
 },
 {
   collection: 'students',
