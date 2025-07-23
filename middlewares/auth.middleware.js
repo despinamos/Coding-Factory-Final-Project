@@ -18,4 +18,23 @@ function verifyToken(req, res, next) {
   } 
 }
 
-module.exports = { verifyToken }
+function verifyRoles(allowedRole) {
+  return (req, res, next) => {
+    
+    if((!req.user || !req.user.roles)) {
+      return res.status(403).json({status: false, data: "Forbidden: no roles found"})
+    }
+
+    const userRoles = req.user.roles
+
+    const hasPermission = userRoles.includes(allowedRole)
+
+    if (!hasPermission) {
+      return res.status(403).json({status: false, data: "Forbidden: insufficient permissions"})
+    }
+
+    next()
+  }
+}
+
+module.exports = { verifyToken, verifyRoles }
