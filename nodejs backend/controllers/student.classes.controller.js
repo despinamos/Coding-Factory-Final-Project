@@ -35,28 +35,34 @@ exports.create = async(req, res) => {
 
       const result = await classService.findOne(classToPush)
 
-      console.log("result: ", result)
+      if (result) {
+        
+        console.log("result: ", result)
 
-      classNew = {
+        classNew = {
         class: result.class,
         hours: result.hours,
         ects: result.ects
-      }
-    
-      try {
+        }
 
-        const result = await Student.updateOne(
-          {username: username},
-          {
-            $push: {
-              classes: classNew
+        try {
+
+          const result = await Student.updateOne(
+            {username: username},
+            {
+              $push: {
+                classes: classNew
+              }
             }
-          }
-        );
-        res.status(200).json({status:true, data: result});
-      } catch (err) {
-        console.log("Problem in adding Class.", err);
-        res.status(400).json({status:false, data:err})
+          );
+          res.status(200).json({status:true, data: result});
+        } catch (err) {
+          console.log("Problem in adding Class.", err);
+          res.status(400).json({status:false, data:err})
+        }
+      } else {
+        console.log("Class you are trying to enroll in not found in db.")
+        res.status(400).json({status:false, data:"Class not found."})
       }
 }
 
