@@ -1,0 +1,27 @@
+{
+  "name": "eclass-app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest --testTimeout=5000",
+    "start": "node --env-file=.env server.js",
+    "dev": "node --env-file=.env --watch server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.1",
+    "mongoose-to-swagger": "^1.5.1",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^17.0.0",
+    "jest": "^30.0.4",
+    "supertest": "^7.1.3"
+  }
+}
