@@ -1,0 +1,13 @@
+<div>
+    <h1>Welcome to Eclass Application!</h1>
+    @if(user()){
+        <span class="me-3 d-flex gap-2 text-info">
+      Hello, {{user()?.username}}
+    </span>
+    <app-menu-list class="text-nowrap w-25"></app-menu-list>
+    } @else {
+    <span class="text-info me-3 d-flex gap-2 align-items-center">
+      Please login to use the platform!
+    </span>
+  }
+</div>
