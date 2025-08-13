@@ -47,10 +47,7 @@ exports.create = async(req, res) => {
         area: data.address.area,
         road: data.address.road
         },
-        phone: {
-            type: data.phone.type,
-            number: data.phone.number
-        }
+        phone: data.phone
     });
 
     try{
@@ -75,10 +72,7 @@ exports.update = async(req, res) => {
         area: req.body.address.area,
         road: req.body.address.road
         },
-        phone: {
-            type: req.body.phone.type,
-            number: req.body.phone.number
-        }
+        phone: req.body.phone
     };
 
     try {

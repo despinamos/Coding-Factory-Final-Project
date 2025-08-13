@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger');
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -12,6 +13,10 @@ const auth = require('./routes/auth.routes');
 const student = require('./routes/student.routes');
 const classRoutes = require('./routes/class.routes');
 const studentClass = require('./routes/student.classes.routes');
+
+app.use(cors({
+  origin: ['http://localhost:4200']
+}))
 
 app.use('/api/auth', auth);
 app.use('/api/students', student);
