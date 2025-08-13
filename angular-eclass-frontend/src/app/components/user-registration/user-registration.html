@@ -1,0 +1,108 @@
+<h1> Register </h1>
+@if (registrationStatus.message==="Not attempted yet"){
+  <div class="d-flex flex-column mt-2 w-50">
+      <form [formGroup]="form" class="d-flex flex-column">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="username">
+          <mat-error>Username is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input matInput type="text" formControlName="firstname">
+          <mat-error>First Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput type="text" formControlName="lastname">
+          <mat-error>Last Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput type="text" formControlName="age">
+          <mat-error>Age is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="text" matInput formControlName="email">
+          @if(form.get('email')?.invalid && form.get('email')?.touched) {
+            <mat-error>Email is missing or invalid</mat-error>
+          }
+
+        </mat-form-field>
+
+        <div formArrayName="phone">
+          @for(p of phone.controls; let i = $index; track i) {
+          <div [formGroupName]="i" class="d-flex">
+            <mat-form-field>
+              <mat-label>Phone number</mat-label>
+              <input type="text" matInput formControlName="number">
+              <mat-error>Phone number is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Phone type</mat-label>
+              <mat-select formControlName="type">
+                <mat-option value="Mobile">Mobile</mat-option>
+                <mat-option value="Home">Home</mat-option>
+                <mat-option value="Work">Work</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          }
+        </div>
+
+        <div class="d-flex gap-2" formGroupName="address">
+          <mat-form-field>
+            <mat-label>Area</mat-label>
+            <input type="text" matInput formControlName="area">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Road</mat-label>
+            <input type="text" matInput formControlName="road">
+          </mat-form-field>
+        </div>
+
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password">
+          @if (form.get('password')?.invalid && form.get('password')?.touched){
+            <mat-error>Password is missing or invalid</mat-error>
+          }      
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Confirm Password</mat-label>
+          <input type="password" matInput formControlName="confirmPassword"/>
+          @if(form.get("confirmPassword")?.hasError("passwordMismatch")){
+          <mat-error>Password do not match</mat-error>
+          } @else if (form.get("confirmPassword")?.invalid && form.get("confirmPassword")?.touched){
+          <mat-error>Confirm Password is missing or invalid</mat-error>
+          }      
+        </mat-form-field>
+        
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="onSubmit()"
+          >Register
+        </button>
+      </form>
+  </div>
+} @else {
+  @if(registrationStatus.success) {
+    <div class="alert alert-success mt-2 w-50">
+      <strong>Success:</strong> {{registrationStatus.message}}
+    </div>
+  } @else {
+    <div class="alert alert-danger mt-2 w-50">
+      <strong>Error:</strong> {{registrationStatus.message}}
+    </div>
+  } 
+}
