@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark bg-info justify-content-between w-full">
+  <a class="navbar-brand ms-3 cursor-pointer " role="button" routerLink="">
+    Eclass Application
+  </a>
+  @if(user()){
+    <span class="me-3 d-flex gap-2 text-light">
+      Welcome, {{user()?.username}}
+      <mat-icon role="button"(click)='logout()'>logout</mat-icon>
+    </span>
+  } @else {
+    <span class="text-light me-3 d-flex gap-2 align-items-center">
+      Login
+      <mat-icon role="button" class="icon-link-hover" routerLink="login">login</mat-icon>
+    </span>
+  }
+</nav>
