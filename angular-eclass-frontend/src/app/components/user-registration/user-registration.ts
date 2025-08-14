@@ -89,7 +89,6 @@ export class UserRegistration {
   // }
 
   onSubmit(){
-    // const data = this.form.value as User;
     const data: StudentUser = {
       'username': this.form.get('username')?.value || '',
       'password': this.form.get('password')?.value || '',
@@ -110,11 +109,11 @@ export class UserRegistration {
     this.studentUserService.registerUser(data)
       .subscribe({
         next: (response) => {
-          console.log("User Saved", response);
+          console.log("User Saved...", response);
           this.registrationStatus = {success: true, message: "User registered"}
         },
         error: (response) => {
-          console.log("User not Saved", response.error.data.errorResponse.errmsg)
+          console.log("User not Saved...", response.error.data.errorResponse.errmsg)
           this.registrationStatus = {success: false, message: response.error.data.errorResponse.errmsg}
         }
       })
