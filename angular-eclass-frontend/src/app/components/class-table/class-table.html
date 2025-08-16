@@ -1,0 +1,26 @@
+<div class="container mt-3">
+  <h2>Classes Information</h2>
+
+  @if (loading) {
+    <p>Loading results...</p>
+  } @else {
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name of Class</th>
+          <th>Hours</th>
+          <th>Ects</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(clss of classes; track clss.class) {
+          <tr>
+            <td>{{ clss.class }}</td>
+            <td>{{ clss.hours }}</td>
+            <td>{{ clss.ects }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
