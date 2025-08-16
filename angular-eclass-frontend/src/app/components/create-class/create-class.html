@@ -1,1 +1,50 @@
-<p>create-class works!</p>
+<h1> Create new Class </h1>
+@if (creationStatus.message==="Not attempted yet"){
+<div>
+  <form [formGroup]="form">
+        <mat-form-field>
+          <mat-label>Class name</mat-label>
+          <input matInput type="text" formControlName="class">
+          <mat-error>Class name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Hours</mat-label>
+          <input matInput type="text" formControlName="hours">
+          <mat-error>Hours is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Ects</mat-label>
+          <input matInput type="text" formControlName="ects">
+          <mat-error>Ects is required</mat-error>
+        </mat-form-field>
+
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="onSubmit()"
+          >Create Class
+        </button>
+  </form>
+</div>
+} @else {
+  @if(creationStatus.success) {
+    <div class="alert alert-success mt-2 w-50">
+      <strong>Success:</strong> {{creationStatus.message}}
+    </div>
+  } @else {
+    <div class="alert alert-danger mt-2 w-50">
+      <strong>Error:</strong> {{creationStatus.message}}
+    </div>
+  }
+}
+<button 
+  mat-flat-button
+  color="primary"
+  class="mt-2"
+  (click) = "createAnother()"
+>
+  Create Another Class
+</button>
