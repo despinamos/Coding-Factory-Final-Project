@@ -14,8 +14,8 @@ export class MenuList {
     { text: 'Register New Class',
     linkName: '/create-class' },
     { text: 'View All Students',
-    linkName: '/user-register' },
+    linkName: '/all-students' },
     { text: 'View All Classes',
-    linkName: '/user-register' },
+    linkName: '/all-classes' },
   ]
 }
