@@ -2,6 +2,8 @@ import { inject, Injectable, signal, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { StudentUser, Credentials, LoggedInUser } from '../interfaces/student-user';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
@@ -35,6 +37,17 @@ export class StudentUserService {
       }
     });
   }
+
+  getAllStudents(): Observable<StudentUser[]> {
+    return this.http.get<{status: boolean, data: StudentUser[]}>(`${API_URL}`)
+    .pipe(
+      map(response => response.data)
+    );
+  }
+
+  // getAllStudents(): Observable<Object> {
+  //     return this.http.get<{status: boolean, data:StudentUser[]}>(`${API_URL}`)
+  // }
 
   registerUser(user:StudentUser) {
     return this.http.post<{status: boolean, data: StudentUser}>(`${API_URL}`, user)
