@@ -1,0 +1,29 @@
+import { inject, Injectable, signal, effect } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
+import { SchoolClass } from '../interfaces/class';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs';
+import { LoggedInUser } from '../interfaces/student-user';
+
+const API_URL = `${environment.apiURL}/api/student-class`
+
+@Injectable({
+  providedIn: 'root'
+})
+export class StudentClassService {
+  http: HttpClient = inject(HttpClient);
+  router = inject(Router);
+
+  getClassesForStudent(student: LoggedInUser): Observable<SchoolClass[]> {
+  return this.http.get<{ status: boolean; data: { username: string; classes: SchoolClass[] } }>(
+      `${API_URL}/${student.username}`
+    )
+    .pipe(
+      map(response => response.data.classes)
+    );
+}
+
+  
+}
