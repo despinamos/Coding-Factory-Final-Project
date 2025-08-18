@@ -1,0 +1,35 @@
+<!-- src/app/components/student-list/student-list.html -->
+<div class="container mt-3">
+  <h2>My Information</h2>
+
+  @if (loading) {
+    <p>Loading results...</p>
+  } @else {
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>{{ student.username }}</td>
+            <td>{{ student.firstname }} {{ student.lastname }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.address?.area }}, {{ student.address?.road }}</td>
+            <td>
+              @for(phone of student.phone; track phone.number) {
+                <div>{{ phone.type }}: {{ phone.number }}</div>
+              }
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  }
+</div>
