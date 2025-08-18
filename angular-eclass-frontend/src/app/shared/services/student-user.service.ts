@@ -45,9 +45,12 @@ export class StudentUserService {
     );
   }
 
-  // getAllStudents(): Observable<Object> {
-  //     return this.http.get<{status: boolean, data:StudentUser[]}>(`${API_URL}`)
-  // }
+  getOneStudent(student: LoggedInUser): Observable<StudentUser>{
+    return this.http.get<{status: boolean, data: StudentUser}>(`${API_URL}/${student.username}`)
+    .pipe(
+      map(response => response.data)
+    );
+  }
 
   registerUser(user:StudentUser) {
     return this.http.post<{status: boolean, data: StudentUser}>(`${API_URL}`, user)
