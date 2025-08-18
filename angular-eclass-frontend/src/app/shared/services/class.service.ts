@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs';
 
 const API_URL = `${environment.apiURL}/api/classes`
-const API_URL_AUTH = `${environment.apiURL}/api/auth`
 
 @Injectable({
   providedIn: 'root'
