@@ -9,10 +9,13 @@ import { Credentials, LoggedInUser } from 'src/app/shared/interfaces/student-use
 import { StudentUserService } from 'src/app/shared/services/student-user.service';
 import { jwtDecode } from 'jwt-decode'
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonModule],
   templateUrl: './user-login.html',
   styleUrl: './user-login.css'
 })
