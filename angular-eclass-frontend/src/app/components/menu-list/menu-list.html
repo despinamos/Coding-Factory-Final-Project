@@ -1,7 +1,7 @@
-<div class="list-group">
+<div class="list-group mx-auto w-50">
   @for (entry of menu; track entry) {
     <a 
-      class="list-group-item list-group-item-action text-truncate"
+      class="list-group-item list-group-item-action text-truncate text-center"
       [routerLink]="entry.linkName"
       [routerLinkActive]= "['active']"
       >{{ entry.text }}</a>
