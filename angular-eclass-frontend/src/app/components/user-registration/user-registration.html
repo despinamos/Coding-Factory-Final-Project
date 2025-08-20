@@ -1,7 +1,8 @@
-<h1> Register </h1>
+
 @if (registrationStatus.message==="Not attempted yet"){
-  <div class="d-flex flex-column mt-2 w-50">
-      <form [formGroup]="form" class="d-flex flex-column">
+  <div class="d-flex flex-column mt-2 w-50 mx-auto">
+    <h2 class="text-center"> Register Student</h2>
+      <form [formGroup]="form" class="d-flex flex-column border rounded p-5" style="background-color: #f8f9fa;">
         <mat-form-field>
           <mat-label>Username</mat-label>
           <input matInput type="text" formControlName="username">
@@ -37,7 +38,7 @@
 
         <div formArrayName="phone">
           @for(p of phone.controls; let i = $index; track i) {
-          <div [formGroupName]="i" class="d-flex">
+          <div [formGroupName]="i" class="d-flex gap-2">
             <mat-form-field>
               <mat-label>Phone number</mat-label>
               <input type="text" matInput formControlName="number">
