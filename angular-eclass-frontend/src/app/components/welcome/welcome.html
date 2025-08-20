@@ -1,12 +1,13 @@
 <div class="text-center">
     <h1>Welcome to Eclass Application!</h1>
-    @if(user()){
+    @if(user() && user().username == "admin"){
         <span class="gap-2 text-info">
       Hello, {{user()?.username}}
     </span>
-    <app-menu-list class="text-nowrap w-25"></app-menu-list>
+    <app-menu-list></app-menu-list>
+  } @else if (user() && user().username != "admin") {
     <app-student-menu></app-student-menu>
-    } @else {
+  } @else {
     <span class="text-info me-3 gap-2">
       Please login to use the platform!
     </span>
