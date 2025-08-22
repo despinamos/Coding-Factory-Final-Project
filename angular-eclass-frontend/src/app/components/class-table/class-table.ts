@@ -2,10 +2,11 @@ import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SchoolClass } from 'src/app/shared/interfaces/class';
 import { CommonModule } from '@angular/common';
 import { ClassService } from 'src/app/shared/services/class.service';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-class-table',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   standalone: true,
   templateUrl: './class-table.html',
   styleUrl: './class-table.css'
@@ -30,6 +31,24 @@ export class ClassTable implements OnInit{
         this.loading = false;
       }
     });
+  }
+
+  editClass(clss: SchoolClass) {
+
+  }
+
+  deleteClass(clss: SchoolClass) {
+    this.classService.deleteAClass(clss).subscribe({
+      next: (response) => {
+        console.log("Deleting a class request", response);
+        const indexOfDeletedClass = this.classes.indexOf(clss);
+        this.classes.splice(indexOfDeletedClass, 1)
+        this.cdr.detectChanges(); 
+      },
+      error: (err) => {
+        console.error('Error deleting class', err);
+      }
+    })
   }
 
 }
