@@ -3,10 +3,11 @@ import { SchoolClass } from 'src/app/shared/interfaces/class';
 import { CommonModule } from '@angular/common';
 import { StudentClassService } from 'src/app/shared/services/student-class.service';
 import { StudentUserService } from 'src/app/shared/services/student-user.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-student-class-table',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   standalone: true,
   templateUrl: './student-class-table.html',
   styleUrl: './student-class-table.css'
@@ -35,4 +36,18 @@ export class StudentClassTable implements OnInit{
     });
   }
 
+  deleteClass(clss: SchoolClass) {
+    this.studentClassService.deleteClassFromStudent(this.user(), clss).subscribe({
+      next: (response) => {
+        console.log("Deleting class for student request", response);
+        const indexOfDeletedClass = this.classes.indexOf(clss);
+        this.classes.splice(indexOfDeletedClass, 1)
+        this.cdr.detectChanges(); 
+      },
+      error: (err) => {
+        console.error('Error deleting class for student', err);
+        this.loading = false;
+      }
+    });
+  }
 }

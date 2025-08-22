@@ -23,7 +23,11 @@ export class StudentClassService {
     .pipe(
       map(response => response.data.classes)
     );
-}
+  }
 
-  
+  deleteClassFromStudent(student: LoggedInUser, clss: SchoolClass) {
+    return this.http.delete<{status: boolean; data: {}}>(
+      `${API_URL}/${student.username}/classes/${clss.class}`
+    )
+  }
 }
