@@ -2,10 +2,11 @@ import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { StudentUser } from 'src/app/shared/interfaces/student-user';
 import { CommonModule } from '@angular/common';
 import { StudentUserService } from 'src/app/shared/services/student-user.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-student-table',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   standalone: true,
   templateUrl: './student-table.html',
   styleUrl: './student-table.css'
@@ -23,12 +24,30 @@ export class StudentTable implements OnInit{
         this.students = response;
         console.log("students>>", this.students);
         this.loading = false;
-        this.cdr.detectChanges(); 
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error fetching students', err);
         this.loading = false;
       }
     });
+  }
+
+  editStudent(student: StudentUser) {
+    
+  }
+
+  deleteStudent(student: StudentUser) {
+    this.studentUserService.deleteAStudent(student).subscribe({
+      next: (response) => {
+        console.log("Deleting a student request", response);
+        const indexOfDeletedStudent = this.students.indexOf(student);
+        this.students.splice(indexOfDeletedStudent, 1)
+        this.cdr.detectChanges(); 
+      },
+      error: (err) => {
+        console.error('Error deleting student', err);
+      }
+    })
   }
 }

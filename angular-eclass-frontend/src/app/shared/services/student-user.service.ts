@@ -62,6 +62,10 @@ export class StudentUserService {
   //   )
   // }
 
+  deleteAStudent(student: StudentUser) {
+    return this.http.delete<{status: boolean, data: StudentUser}>(`${API_URL}/${student.username}`)
+  }
+
   loginUser(credentials: Credentials){
     return this.http.post<{status:boolean, data:string}>(
       `${API_URL_AUTH}/login`,credentials
