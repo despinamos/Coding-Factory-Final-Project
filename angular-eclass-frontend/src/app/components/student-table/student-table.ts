@@ -3,10 +3,12 @@ import { StudentUser } from 'src/app/shared/interfaces/student-user';
 import { CommonModule } from '@angular/common';
 import { StudentUserService } from 'src/app/shared/services/student-user.service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-student-table',
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatButton, RouterLink],
   standalone: true,
   templateUrl: './student-table.html',
   styleUrl: './student-table.css'
