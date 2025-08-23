@@ -10,6 +10,7 @@ import { RestrictedContent } from './components/restricted-content/restricted-co
 import { adminRoleGuard } from './shared/guards/admin-role-guard';
 import { StudentClassTable } from './components/student-class-table/student-class-table';
 import { StudentPersonalInfo } from './components/student-personal-info/student-personal-info';
+import { EnrollInClass } from './components/enroll-in-class/enroll-in-class';
 
 export const routes: Routes = [
     {path: 'login', component: UserLogin},
@@ -17,6 +18,7 @@ export const routes: Routes = [
     {path: 'create-class', component:CreateClass, canActivate: [authGuard, adminRoleGuard]},
     {path: 'all-students', component:StudentTable, canActivate: [authGuard, adminRoleGuard]},
     {path: 'all-classes', component:ClassTable, canActivate: [authGuard, adminRoleGuard]},
+    {path: 'enroll-in-class', component:EnrollInClass, canActivate: [authGuard]},
     {path: 'student-classes', component:StudentClassTable, canActivate: [authGuard]},
     {path: 'student-info', component:StudentPersonalInfo, canActivate: [authGuard]},
     {path: 'restricted-content', component:RestrictedContent},
