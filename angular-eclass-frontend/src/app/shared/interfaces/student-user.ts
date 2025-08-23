@@ -22,3 +22,8 @@ export interface LoggedInUser {
   email: string,
   roles: [string]
 }
+
+export interface StudentClass {
+  username: string,
+  class: string
+}
