@@ -11,6 +11,7 @@ import { adminRoleGuard } from './shared/guards/admin-role-guard';
 import { StudentClassTable } from './components/student-class-table/student-class-table';
 import { StudentPersonalInfo } from './components/student-personal-info/student-personal-info';
 import { EnrollInClass } from './components/enroll-in-class/enroll-in-class';
+import { StudentClassTableForAdmin } from './components/student-class-table-for-admin/student-class-table-for-admin';
 
 export const routes: Routes = [
     {path: 'login', component: UserLogin},
@@ -21,6 +22,7 @@ export const routes: Routes = [
     {path: 'enroll-in-class', component:EnrollInClass, canActivate: [authGuard]},
     {path: 'student-classes', component:StudentClassTable, canActivate: [authGuard]},
     {path: 'student-info', component:StudentPersonalInfo, canActivate: [authGuard]},
+    {path: 'student-class-table-for-admin', component:StudentClassTableForAdmin, canActivate: [authGuard, adminRoleGuard]},
     {path: 'restricted-content', component:RestrictedContent},
     {path: 'welcome', component:Welcome},
     {path: '', redirectTo:'/welcome', pathMatch:'full'}
