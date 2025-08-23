@@ -10,7 +10,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router'
 export class StudentMenu {
   menu = [
     { text: 'Enroll in new Class',
-    linkName: '/class-register' },
+    linkName: '/enroll-in-class' },
     { text: 'View Classes',
     linkName: '/student-classes' },
     { text: 'View Personal Info',
