@@ -18,10 +18,14 @@
             <td>{{ clss.class }}</td>
             <td>{{ clss.hours }}</td>
             <td>{{ clss.ects }}</td>
-            <td>
+            @if(user().username == "admin") {
+              <td>
               <mat-icon (click)="editClass(clss)" role="button" class="text-primary mx-2">edit</mat-icon>
               <mat-icon (click)="deleteClass(clss)" role="button" class="text-danger">delete</mat-icon>
             </td>
+            } @else {
+              <td><button mat-flat-button color="primary" (click)="enrollInClass(clss)">Enroll</button></td>
+            }
           </tr>
         }
       </tbody>
