@@ -1,4 +1,4 @@
-import { inject, Injectable, signal, effect } from '@angular/core';
+import { inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { SchoolClass } from '../interfaces/class';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { LoggedInUser } from '../interfaces/student-user';
+import { StudentClass } from '../interfaces/student-user';
 
 const API_URL = `${environment.apiURL}/api/student-class`
 
@@ -23,6 +24,12 @@ export class StudentClassService {
     .pipe(
       map(response => response.data.classes)
     );
+  }
+
+  createClassInStudent(studentClass: StudentClass) {
+    return this.http.post<{status: boolean; data: {username: string; classes: SchoolClass[]}}>(
+      `${API_URL}`, studentClass
+    )
   }
 
   deleteClassFromStudent(student: LoggedInUser, clss: SchoolClass) {
