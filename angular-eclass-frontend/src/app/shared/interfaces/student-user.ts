@@ -1,3 +1,5 @@
+import { SchoolClass } from "./class";
+
 export interface StudentUser {
   username: string;
   password: string;
@@ -26,4 +28,9 @@ export interface LoggedInUser {
 export interface StudentClass {
   username: string,
   class: string
+}
+
+export interface ClassesPerStudent {
+  username: string,
+  classes: [SchoolClass]
 }
