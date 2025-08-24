@@ -5,7 +5,7 @@ import { SchoolClass } from '../interfaces/class';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
-import { ClassesPerStudent, LoggedInUser} from '../interfaces/student-user';
+import { ClassesPerStudent, LoggedInUser, StudentUser} from '../interfaces/student-user';
 import { StudentClass } from '../interfaces/student-user';
 
 const API_URL = `${environment.apiURL}/api/student-class`
@@ -41,9 +41,9 @@ export class StudentClassService {
     )
   }
 
-  deleteClassFromStudent(student: LoggedInUser, clss: SchoolClass) {
+  deleteClassFromStudent(username: string, clss: SchoolClass) {
     return this.http.delete<{status: boolean; data: {}}>(
-      `${API_URL}/${student.username}/classes/${clss.class}`
+      `${API_URL}/${username}/classes/${clss.class}`
     )
   }
 }
