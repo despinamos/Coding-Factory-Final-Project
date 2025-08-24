@@ -18,6 +18,7 @@ export class StudentClassTable implements OnInit{
   studentClassService = inject(StudentClassService);
   studentUserService = inject(StudentUserService);
   user = this.studentUserService.user$;
+  username = this.user().username;
   loading = true;
 
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class StudentClassTable implements OnInit{
   }
 
   deleteClass(clss: SchoolClass) {
-    this.studentClassService.deleteClassFromStudent(this.user(), clss).subscribe({
+    this.studentClassService.deleteClassFromStudent(this.username, clss).subscribe({
       next: (response) => {
         console.log("Deleting class for student request", response);
         const indexOfDeletedClass = this.classes.indexOf(clss);
