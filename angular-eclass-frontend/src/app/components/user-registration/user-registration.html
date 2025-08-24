@@ -95,6 +95,15 @@
           >Register
         </button>
       </form>
+
+    <button 
+    mat-flat-button
+    color="primary"
+    class="mt-2 w-25"
+    (click)="registerAnother()"
+    >
+      Register Another Student
+    </button>
   </div>
 } @else {
   @if(registrationStatus.success) {
