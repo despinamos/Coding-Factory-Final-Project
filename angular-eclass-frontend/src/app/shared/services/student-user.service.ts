@@ -56,11 +56,11 @@ export class StudentUserService {
     return this.http.post<{status: boolean, data: StudentUser}>(`${API_URL}`, user)
   }
 
-  // check_duplicate_email(email: string) {
-  //   return this.http.get<{status: boolean, data:StudentUser}>(
-  //     `${API_URL}/check_duplicate_email/${email}`
-  //   )
-  // }
+  check_duplicate_email(email: string) {
+    return this.http.get<{status: boolean, data:StudentUser}>(
+      `${API_URL}/check_duplicate_email/${email}`
+    )
+  }
 
   deleteAStudent(student: StudentUser) {
     return this.http.delete<{status: boolean, data: StudentUser}>(`${API_URL}/${student.username}`)

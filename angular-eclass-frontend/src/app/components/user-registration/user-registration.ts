@@ -120,26 +120,26 @@ export class UserRegistration {
     
   }
 
-  // check_duplicate_email(){
-  //   const email = this.form.get("email")?.value;
+  check_duplicate_email(){
+    const email = this.form.get("email")?.value;
 
-  //   if (email){
-  //     console.log("email", email);
-  //     this.studentUserService.check_duplicate_email(email)
-  //       .subscribe({
-  //         next: (response) => {
-  //           console.log("Email OK",response);
-  //           this.form.get("email")?.setErrors(null)
-  //         },
-  //         error: (response) => {
-  //           console.log(response);
-  //           const message = response.data;
-  //           console.log("Email not OK",message);
-  //           this.form.get('email')?.setErrors({dublicateEmail: true})
-  //         }
-  //       })
-  //   }
-  // }
+    if (email){
+      console.log("Email: ", email);
+      this.studentUserService.check_duplicate_email(email)
+        .subscribe({
+          next: (response) => {
+            console.log("Email is OK.",response);
+            this.form.get("email")?.setErrors(null)
+          },
+          error: (response) => {
+            console.log(response);
+            const message = response.data;
+            console.log("Email is invalid because it already exists.",message);
+            this.form.get('email')?.setErrors({dublicateEmail: true})
+          }
+        })
+    }
+  }
 
   registerAnother(){
     this.form.reset()
