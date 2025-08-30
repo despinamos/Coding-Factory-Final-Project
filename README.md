@@ -30,12 +30,14 @@ The final project for Coding Factory Seminar.
 ### Run local server (backend) on port 3000:
 ```
  cd nodejs-backend
+ npm install
  npm run start
 ```
 
 ### Run Angular frontend (on a second terminal):
 ```
  cd angular-eclass-frontend
+ npm install
  ng serve
 ```
 
