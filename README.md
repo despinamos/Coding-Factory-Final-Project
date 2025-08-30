@@ -13,12 +13,12 @@ Project was developed in August 2025.
 # Prerequisites:
   ### Environment variables:
   - JWT_TOKEN: The secret key that will be used to sign and verify JSON Web Tokens. Should be kept secret and random.
-  - MONGODB_URI: The connection string that will be used to connect the application to MongoDB. Example: MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.dshzf.mongodb.net/school?retryWrites=true&w=majority
+  - MONGODB_URI: The connection string that will be used to connect the application to MongoDB. Example: MONGODB_URI=mongodb+srv://example_username:example_password@cluster0.dshzf.mongodb.net/school?retryWrites=true&w=majority
 
   ### Login Required:
    - The application requires a logged in user to showcase its operations. A user can login if they already exist on the Database, using their username and password.
    - Only the Admin User, who must have the "ADMIN" role, can perform critical actions, like creating Students/ Classes, updating Students/ Classes or deleting Students/Classes.
-   - For testing purposes, an Admin user must be created in the Database, with the role "ADMIN" in their user roles.
+   - For testing purposes, an Admin user must be created in the Database, with the role "ADMIN" in their user roles. For example, create a document in MongoDB as: username: admin, password: admin_password, email: admin@aueb.gr, roles: ["ADMIN"]
    - The Admin can create the Students, who will later be able to login using their credentials.
 
 # Instructions for Deployment (Local Deployment):
