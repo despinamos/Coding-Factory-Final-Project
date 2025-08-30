@@ -11,7 +11,7 @@ export class StudentMenu {
   menu = [
     { text: 'Enroll in new Class',
     linkName: '/enroll-in-class' },
-    { text: 'View Classes',
+    { text: 'View My Classes',
     linkName: '/student-classes' },
     { text: 'View Personal Info',
     linkName: '/student-info' }
