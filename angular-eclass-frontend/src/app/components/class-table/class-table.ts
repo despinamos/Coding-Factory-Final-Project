@@ -23,6 +23,7 @@ export class ClassTable implements OnInit{
   studentUserService = inject(StudentUserService)
   studentClassService = inject(StudentClassService);
   loading = true;
+  editing = "";
   user = this.studentUserService.user$;
 
   ngOnInit(): void {
@@ -42,7 +43,25 @@ export class ClassTable implements OnInit{
   }
 
   editClass(clss: SchoolClass) {
+    this.editing = clss.class;
+    console.log("Editing class: ", this.editing);
+  }
 
+  saveChanges(clss: SchoolClass, hours: string, ects: string) {
+
+    const updatedClass = {
+      class: clss.class,
+      hours: +hours,
+      ects: +ects
+    }
+
+    this.classService.updateClass(updatedClass).subscribe({
+      next: (response) => {
+        console.log("Class updated: ", response);
+        this.editing = "";
+        this.cdr.detectChanges(); 
+      }
+    })
   }
 
   enrollInClass(clss: SchoolClass) {

@@ -17,12 +17,15 @@
         @for(clss of classes; track clss.class) {
           <tr>
             <td>{{ clss.class }}</td>
-            <td>{{ clss.hours }}</td>
-            <td>{{ clss.ects }}</td>
+            <td><input [disabled]="editing !== clss.class" type="text" [value]="clss.hours" #hoursRef style="border:none; background-color: transparent;"/></td>
+            <td><input [disabled]="editing !== clss.class" type="text" [value]="clss.ects" #ectsRef style="border:none; background-color: transparent;"/></td>
             @if(user().username == "admin") {
               <td>
-              <mat-icon (click)="editClass(clss)" role="button" class="text-primary mx-2">edit</mat-icon>
-              <mat-icon (click)="deleteClass(clss)" role="button" class="text-danger">delete</mat-icon>
+                @if(editing === clss.class) {
+                  <button mat-flat-button color="primary" (click)="saveChanges(clss, hoursRef.value, ectsRef.value)">Save changes</button>
+                }
+                <mat-icon (click)="editClass(clss)" role="button" class="text-primary mx-2">edit</mat-icon>
+                <mat-icon (click)="deleteClass(clss)" role="button" class="text-danger">delete</mat-icon>
             </td>
             } @else {
               <td><button mat-flat-button color="primary" (click)="enrollInClass(clss)">Enroll</button></td>
