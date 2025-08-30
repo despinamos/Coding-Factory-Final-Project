@@ -1,11 +1,14 @@
 <mat-toolbar color="primary" class="justify-content-between">
-  <a class="navbar-brand ms-3 cursor-pointer " role="button" routerLink="">
-    Eclass Application
+  <div class="d-flex gap-1">
+    <mat-icon role="button" routerLink="">home</mat-icon>
+    <a class="navbar-brand cursor-pointer " role="button" routerLink="">
+    Eclass
   </a>
+  </div>
   @if(user()){
     <span class="me-3 d-flex gap-2 text-light">
       Welcome, {{user()?.username}}
-      <mat-icon role="button"(click)='logout()'>logout</mat-icon>
+      <mat-icon role="button" (click)='logout()'>logout</mat-icon>
     </span>
   } @else {
     <span class="text-light me-3 d-flex gap-2 align-items-center">
