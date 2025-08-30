@@ -18,7 +18,7 @@ Project was developed in August 2025.
   ### Login Required:
    - The application requires a logged in user to showcase its operations. A user can login if they already exist on the Database, using their username and password.
    - Only the Admin User, who must have the "ADMIN" role, can perform critical actions, like creating Students/ Classes, updating Students/ Classes or deleting Students/Classes.
-   - For testing purposes, an Admin user must be created in the Database, with the role "ADMIN" in their user roles. For example, create a document in MongoDB as: username: admin, password: admin_password, email: admin@aueb.gr, roles: ["ADMIN"]
+   - For testing purposes, an Admin user must be created in the Database, with the role "ADMIN" in their user roles. For example, create a document in MongoDB as: "username": "admin", "password": "admin_password", "email": "eclassAdmin@aueb.gr", "roles": ["ADMIN"]
    - The Admin can create the Students, who will later be able to login using their credentials.
 
 # Instructions for Deployment (Local Deployment):
