@@ -48,7 +48,7 @@ exports.create = async(req, res) => {
 }
 
 exports.update = async(req, res) => {
-    const className = req.body.classname;
+    const className = req.body.class;
     console.log("Update Class information with name: ", className);
 
     const updateClass = {
