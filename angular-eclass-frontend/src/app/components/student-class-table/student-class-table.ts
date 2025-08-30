@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { StudentClassService } from 'src/app/shared/services/student-class.service';
 import { StudentUserService } from 'src/app/shared/services/student-user.service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-student-class-table',
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatButton, RouterLink],
   standalone: true,
   templateUrl: './student-class-table.html',
   styleUrl: './student-class-table.css'
