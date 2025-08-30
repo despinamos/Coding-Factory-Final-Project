@@ -25,18 +25,14 @@ exports.options = {
     "title": "Student and Classes CRUD API",
     "description":"An eclass-like application for creating students and classes.",
     "contact": {
-      "name": "API Support",
-      "email":"support@example.com"
+      "name": "Despoina Moschokarfi",
+      "email":"despinamx16@aueb.gr"
     }
   },
   "servers": [
     {
       url:"http://localhost:3000",
       description:"Local Server"
-    },
-    {
-      url:"http://www.backend.aueb.gr",
-      description: "Testing server"
     }
   ],
   "tags": [
