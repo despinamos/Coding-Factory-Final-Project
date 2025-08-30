@@ -5,10 +5,11 @@ import { StudentUserService } from 'src/app/shared/services/student-user.service
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-student-table',
-  imports: [CommonModule, MatIconModule, MatButton, RouterLink],
+  imports: [CommonModule, MatIconModule, MatButton, RouterLink, FormsModule],
   standalone: true,
   templateUrl: './student-table.html',
   styleUrl: './student-table.css'
@@ -18,6 +19,7 @@ export class StudentTable implements OnInit{
   students: StudentUser[] = [];
   studentUserService = inject(StudentUserService);
   loading = true;
+  editing = "";
 
   ngOnInit(): void {
     this.studentUserService.getAllStudents().subscribe({
@@ -36,7 +38,33 @@ export class StudentTable implements OnInit{
   }
 
   editStudent(student: StudentUser) {
-    
+    this.editing = student.username;
+    console.log("Editing student: ", this.editing);
+  }
+
+  saveChanges(student: StudentUser) {
+
+    // , age: string, email: string, addressArea: string, addressRoad: string
+  
+    // const updatedStudent = {
+    //   username: student.username,
+    //   firstname: student.firstname,
+    //   lastname: student.lastname,
+    //   age: +age,
+    //   email: email,
+    //   address: {
+    //     area: addressArea,
+    //     road: addressRoad
+    //   }
+    // }
+  
+      this.studentUserService.updateStudent(student).subscribe({
+        next: (response) => {
+          console.log("Student updated: ", response);
+          this.editing = "";
+          this.cdr.detectChanges(); 
+        }
+      })
   }
 
   deleteStudent(student: StudentUser) {

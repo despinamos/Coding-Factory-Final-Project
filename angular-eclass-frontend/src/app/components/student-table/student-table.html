@@ -1,4 +1,4 @@
-<div class="container mt-3">
+<div class="container mt-3" style="overflow-x: auto">
   <h2>Students Information</h2>
 
   @if (loading) {
@@ -18,25 +18,92 @@
       </thead>
       <tbody>
         @for(student of students; track student.username) {
-          <tr>
-            <td>{{ student.username }}</td>
-            <td>{{ student.firstname }} {{ student.lastname }}</td>
-            <td>{{ student.age }}</td>
-            <td>{{ student.email }}</td>
-            <td>{{ student.address?.area }}, {{ student.address?.road }}</td>
-            <td>
-              @for(phone of student.phone; track phone.number) {
-                <div>{{ phone.type }}: {{ phone.number }}</div>
-              }
-            </td>
-            <td>
-              <mat-icon (click)="editStudent(student)" role="button" class="text-primary mx-2">edit</mat-icon>
-              <mat-icon (click)="deleteStudent(student)" role="button" class="text-danger">delete</mat-icon>
-            </td>
-          </tr>
+          @if(student.username !== "admin") {
+            <tr>
+              <td>{{ student.username }}</td>
+              <td>{{ student.firstname }} {{ student.lastname }}</td>
+
+              <td>
+                <input
+                  [disabled]="editing !== student.username"
+                  type="text"
+                  [(ngModel)]="student.age"
+                  style="border:none; background-color: transparent; width: 30px;"
+                />
+              </td>
+
+              <td>
+                <input
+                  [disabled]="editing !== student.username"
+                  type="text"
+                  [(ngModel)]="student.email"
+                  style="border:none; background-color: transparent;"
+                />
+              </td>
+
+              <td>
+                <input
+                  [disabled]="editing !== student.username"
+                  type="text"
+                  [(ngModel)]="student.address.area"
+                  style="border:none; background-color: transparent; width: 100px;"
+                />
+                ,
+                <input
+                  [disabled]="editing !== student.username"
+                  type="text"
+                  [(ngModel)]="student.address.road"
+                  style="border:none; background-color: transparent; width: 100px;"
+                />
+              </td>
+
+              <td>
+                @for(phone of student.phone; track phone.number) {
+                  <div>
+                    <input
+                      [disabled]="editing !== student.username"
+                      type="text"
+                      [(ngModel)]="phone.type"
+                      style="border:none; background-color: transparent; width: 100px;"
+                    />
+                    :
+                    <input
+                      [disabled]="editing !== student.username"
+                      type="text"
+                      [(ngModel)]="phone.number"
+                      style="border:none; background-color: transparent; width: 100px;"
+                    />
+                  </div>
+                }
+              </td>
+
+              <td>
+                @if(editing === student.username) {
+                  <button
+                    mat-flat-button
+                    color="primary"
+                    (click)="saveChanges(student)">
+                    Save changes
+                  </button>
+                }
+                <mat-icon
+                  (click)="editStudent(student)"
+                  role="button"
+                  class="text-primary mx-2">
+                  edit
+                </mat-icon>
+                <mat-icon
+                  (click)="deleteStudent(student)"
+                  role="button"
+                  class="text-danger">
+                  delete
+                </mat-icon>
+              </td>
+            </tr>
+          }
         }
       </tbody>
     </table>
-    <button mat-flat-button color="primary" class="icon-link-hover" routerLink="/student-class-table-for-admin">View Classes Per Student</button>
+  <button mat-flat-button color="primary" class="icon-link-hover" routerLink="/student-class-table-for-admin">View Classes Per Student</button>
   }
 </div>
