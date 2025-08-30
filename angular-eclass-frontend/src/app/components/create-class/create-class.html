@@ -1,5 +1,6 @@
-@if (creationStatus.message==="Not attempted yet"){
 <div class="d-flex flex-column mt-2 w-50 mx-auto">
+@if (creationStatus.message==="Not attempted yet"){
+<div>
   <h2> Create new Class </h2>
   <form [formGroup]="form" class="d-flex flex-column border rounded p-5" style="background-color: #f8f9fa;">
         <mat-form-field>
@@ -28,14 +29,6 @@
           >Create Class
         </button>
   </form>
-  <button 
-  mat-flat-button
-  color="primary"
-  class="mt-2 w-25"
-  (click)="createAnother()"
->
-  Create Another Class
-</button>
 </div>
 } @else {
   @if(creationStatus.success) {
@@ -48,3 +41,12 @@
     </div>
   }
 }
+<button 
+  mat-flat-button
+  color="primary"
+  class="mt-2 w-25"
+  (click)="createAnother()"
+>
+  Create Another Class
+</button>
+</div>
