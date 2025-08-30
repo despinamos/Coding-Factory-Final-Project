@@ -16,7 +16,7 @@ The final project for Coding Factory Seminar.
 
   ### Login Required:
    - The application requires a logged in user to showcase its operations. A user can login if they already exist on the Database, using their username and password.
-   - Only the Admin User, who must have the "ADMIN" role, can perform critial actions, like creating Students/ Classes, updating Students/ Classes or deleting Students/Classes.
+   - Only the Admin User, who must have the "ADMIN" role, can perform critical actions, like creating Students/ Classes, updating Students/ Classes or deleting Students/Classes.
    - For testing purposes, an Admin user must be created in the Database, with the role "ADMIN" in their user roles.
    - The Admin can create the Students, who will later be able to login using their credentials.
 
@@ -24,7 +24,7 @@ The final project for Coding Factory Seminar.
 
 ### Clone Repository:
 ```
- git clone https://github.com/despinamos/project.git
+ git clone https://github.com/despinamos/Coding-Factory-Final-Project.git
 ```
 
 ### Run local server (backend) on port 3000:
