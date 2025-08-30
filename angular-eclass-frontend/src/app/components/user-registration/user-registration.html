@@ -1,5 +1,6 @@
+<div  class="d-flex flex-column mt-2 w-50 mx-auto">
 @if (registrationStatus.message==="Not attempted yet"){
-  <div class="d-flex flex-column mt-2 w-50 mx-auto">
+  <div>
     <h2 class="text-center"> Register Student</h2>
       <form [formGroup]="form" class="d-flex flex-column border rounded p-5" style="background-color: #f8f9fa;">
         <mat-form-field>
@@ -95,15 +96,6 @@
           >Register
         </button>
       </form>
-
-    <button 
-    mat-flat-button
-    color="primary"
-    class="mt-2 w-25"
-    (click)="registerAnother()"
-    >
-      Register Another Student
-    </button>
   </div>
 } @else {
   @if(registrationStatus.success) {
@@ -116,3 +108,12 @@
     </div>
   } 
 }
+<button 
+    mat-flat-button
+    color="primary"
+    class="mt-2 w-25"
+    (click)="registerAnother()"
+    >
+      Register Another Student
+    </button>
+</div>
