@@ -1,5 +1,6 @@
 # Coding-Factory-Final-Project
-The final project for Coding Factory Seminar.
+The final project for Coding Factory Seminar (October 2024-July 2025).
+Project was developed in August 2025.
 
 # Project Overview:
   A web application for an Eclass Platform where the Admin creates Classes and registers Students. The Students are then able to enroll in the Classes they want. The application offers basic CRUD operations to create a Student/Class, update a Student/Class, delete a Student/Class, and get a Student/Class or multiple. Students and Classes are saved in a NoSQL Database using MongoDB. The application supports JWT-based authentication.
