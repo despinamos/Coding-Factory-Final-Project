@@ -62,6 +62,10 @@ export class StudentUserService {
     )
   }
 
+  updateStudent(user: StudentUser) {
+    return this.http.patch<{status: boolean, data: StudentUser}>(`${API_URL}`, user);
+  }
+
   deleteAStudent(student: StudentUser) {
     return this.http.delete<{status: boolean, data: StudentUser}>(`${API_URL}/${student.username}`)
   }
@@ -72,7 +76,7 @@ export class StudentUserService {
     )
   }
 
-   logoutUser(){
+  logoutUser(){
     this.user$.set(null);
     localStorage.removeItem('access_token');
     this.router.navigate(['login']);
