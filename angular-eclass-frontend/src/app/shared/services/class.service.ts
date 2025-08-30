@@ -26,6 +26,10 @@ export class ClassService {
     return this.http.post<{status: boolean, data: SchoolClass}>(`${API_URL}`, schoolClass)
   }
 
+  updateClass(schoolClass: SchoolClass) {
+    return this.http.patch<{status: boolean, data: SchoolClass}>(`${API_URL}`, schoolClass);
+  }
+
   deleteAClass(clss: SchoolClass) {
       return this.http.delete<{status: boolean, data: SchoolClass}>(`${API_URL}/${clss.class}`)
   }
